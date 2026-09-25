@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Memória Dragon Ball Z</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome (Ícones) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Fonte Google (Bangers) -->
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- Estilos Personalizados -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header class="py-3 mb-3 border-bottom shadow">
+    <div class="container d-flex justify-content-between align-items-center">
+      <h1 class="game-title m-0">DRAGON BALL Z <span>MEMÓRIA</span></h1>
+      <button class="btn btn-warning fw-bold text-dark rounded-pill px-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#configModal">
+        <i class="fa-solid fa-gear me-1"></i> Configurações
+      </button>
+    </div>
+  </header>
+
+  <!-- Painel de Status -->
+  <div class="container mb-4">
+    <div class="row g-3 align-items-center justify-content-center text-center">
+      
+      <!-- Cronômetro -->
+      <div class="col-6 col-md-3">
+        <div class="status-card p-2 rounded shadow-sm">
+          <i class="fa-regular fa-clock text-warning fs-4 mb-1"></i>
+          <div class="small text-uppercase text-light font-weight-bold">Tempo</div>
+          <div id="timer" class="fs-4 fw-bold text-warning">00:00</div>
+        </div>
+      </div>
+
+      <!-- Tentativas / Jogadas -->
+      <div class="col-6 col-md-3">
+        <div class="status-card p-2 rounded shadow-sm">
+          <i class="fa-solid fa-rotate text-info fs-4 mb-1"></i>
+          <div class="small text-uppercase text-light font-weight-bold">Jogadas</div>
+          <div id="moves" class="fs-4 fw-bold text-info">0</div>
+        </div>
+      </div>
+
+      <!-- Jogadores (Dinamico) -->
+      <div class="col-12 col-md-6">
+        <div id="playersBoard" class="d-flex justify-content-center gap-2 flex-wrap">
+          <!-- Os cards de jogadores entram via JavaScript -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Tabuleiro do Jogo -->
+  <main class="container mb-5">
+    <div id="gameGrid" class="game-grid grid-easy mx-auto">
+      <!-- Cartas geradas via Javascript -->
+    </div>
+  </main>
+
+  <!-- Modal de Configurações -->
+  <div class="modal fade" id="configModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-light border-warning">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title game-font text-warning fs-3"><i class="fa-solid fa-sliders me-2"></i> Configurações da Partida</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="configForm">
+            
+            <!-- Dificuldade -->
+            <div class="mb-4">
+              <label class="form-label fw-bold text-warning">Dificuldade:</label>
+              <div class="btn-group w-100" role="group">
+                <input type="radio" class="btn-check" name="difficulty" id="diffEasy" value="easy" checked>
+                <label class="btn btn-outline-warning" for="diffEasy">Fácil (8 cartas)</label>
+
+                <input type="radio" class="btn-check" name="difficulty" id="diffMedium" value="medium">
+                <label class="btn btn-outline-warning" for="diffMedium">Médio (16 cartas)</label>
+
+                <input type="radio" class="btn-check" name="difficulty" id="diffHard" value="hard">
+                <label class="btn btn-outline-warning" for="diffHard">Difícil (24 cartas)</label>
+              </div>
+            </div>
+
+            <!-- Número de Jogadores -->
+            <div class="mb-3">
+              <label class="form-label fw-bold text-warning">Quantidade de Jogadores:</label>
+
+              <div class="btn-group w-100 mb-3" role="group">
+                <input type="radio" class="btn-check" name="playerCount" id="pCount1" value="1" checked>
+                <label class="btn btn-outline-warning" for="pCount1">1</label>
+
+                <input type="radio" class="btn-check" name="playerCount" id="pCount2" value="2">
+                <label class="btn btn-outline-warning" for="pCount2">2</label>
+
+                <input type="radio" class="btn-check" name="playerCount" id="pCount3" value="3">
+                <label class="btn btn-outline-warning" for="pCount3">3</label>
+
+                <input type="radio" class="btn-check" name="playerCount" id="pCount4" value="4">
+                <label class="btn btn-outline-warning" for="pCount4">4</label>
+              </div>
+
+              <!-- Nomes dos Jogadores -->
+              <div id="playerNamesInputs" class="d-flex flex-column gap-2">
+                <!-- Preenchido via JS conforme seleção -->
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" id="btnStartGame" class="btn btn-warning fw-bold">Novo Jogo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Vitória -->
+  <div class="modal fade" id="victoryModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered text-center">
+      <div class="modal-content bg-dark text-light border-warning shadow-lg">
+        <div class="modal-body p-4">
+          <i class="fa-solid fa-trophy text-warning display-1 mb-3 animate-bounce"></i>
+          <h2 class="game-font text-warning display-5 mb-2">PARTIDA CONCLUÍDA!</h2>
+          
+          <div id="victoryDetails" class="my-3 fs-5">
+            <!-- Informações dos Vencedores -->
+          </div>
+
+          <button id="btnPlayAgain" class="btn btn-warning btn-lg fw-bold px-4 rounded-pill mt-3 shadow">
+            <i class="fa-solid fa-play me-2"></i>Jogar Novamente
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts Libs Externa -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <!-- Lógica Principal -->
+  <script src="script.js"></script>
+</body>
+</html>
