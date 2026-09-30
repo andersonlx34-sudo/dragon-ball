@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dragon Ball Z - Jogo da Memória</title>
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="topbar">
+
+        <div class="container topbar-content">
+
+            <h1>
+                DRAGON BALL Z
+                <span>MEMÓRIA</span>
+            </h1>
+
+            <button id="openSettings" class="settings-btn">
+                ⚙ Configurações
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTEÚDO -->
+    <main class="container">
+
+        <!-- STATUS -->
+        <section class="status-area">
+
+            <!-- TEMPO -->
+            <div class="status-card">
+
+                <div class="status-icon">
+                    ⏱
+                </div>
+
+                <span>Tempo</span>
+
+                <strong id="timer">
+                    00:00
+                </strong>
+
+            </div>
+
+
+            <!-- JOGADAS -->
+            <div class="status-card">
+
+                <div class="status-icon blue">
+                    ↻
+                </div>
+
+                <span>Jogadas</span>
+
+                <strong id="moves">
+                    0
+                </strong>
+
+            </div>
+
+
+            <!-- JOGADORES -->
+            <div id="playersBoard" class="players-board">
+            </div>
+
+        </section>
+
+
+        <!-- MENSAGEM -->
+        <div id="message" class="message">
+            Escolha as cartas e encontre os pares!
+        </div>
+
+
+        <!-- TABULEIRO -->
+        <section id="gameGrid" class="game-grid">
+        </section>
+
+    </main>
+
+
+    <!-- MODAL DE CONFIGURAÇÕES -->
+    <div id="settingsModal" class="modal hidden">
+
+        <div class="modal-box">
+
+            <button id="closeSettings" class="close-btn">
+                ×
+            </button>
+
+            <h2>
+                ⚙ Configurações
+            </h2>
+
+
+            <!-- DIFICULDADE -->
+            <div class="form-group">
+
+                <label>
+                    Dificuldade
+                </label>
+
+                <div class="option-grid">
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="difficulty"
+                            value="easy"
+                            checked
+                        >
+
+                        <span>
+                            Fácil
+                            <br>
+                            <small>8 cartas</small>
+                        </span>
+
+                    </label>
+
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="difficulty"
+                            value="medium"
+                        >
+
+                        <span>
+                            Médio
+                            <br>
+                            <small>16 cartas</small>
+                        </span>
+
+                    </label>
+
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="difficulty"
+                            value="hard"
+                        >
+
+                        <span>
+                            Difícil
+                            <br>
+                            <small>24 cartas</small>
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- JOGADORES -->
+            <div class="form-group">
+
+                <label>
+                    Quantidade de jogadores
+                </label>
+
+                <div class="player-options">
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="players"
+                            value="1"
+                            checked
+                        >
+
+                        <span>1</span>
+
+                    </label>
+
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="players"
+                            value="2"
+                        >
+
+                        <span>2</span>
+
+                    </label>
+
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="players"
+                            value="3"
+                        >
+
+                        <span>3</span>
+
+                    </label>
+
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="players"
+                            value="4"
+                        >
+
+                        <span>4</span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- NOMES -->
+            <div id="playerNames">
+            </div>
+
+
+            <!-- NOVO JOGO -->
+            <button id="newGame" class="start-btn">
+                🔥 NOVO JOGO
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODAL DE VITÓRIA -->
+    <div id="victoryModal" class="modal hidden">
+
+        <div class="modal-box victory-box">
+
+            <div class="trophy">
+                🏆
+            </div>
+
+            <h2>
+                PARTIDA CONCLUÍDA!
+            </h2>
+
+            <div id="victoryDetails">
+            </div>
+
+            <button id="playAgain" class="start-btn">
+                🔄 JOGAR NOVAMENTE
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+</html>
